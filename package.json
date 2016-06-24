@@ -1,0 +1,29 @@
+{
+  "name": "seostatus",
+  "version": "1.0.0",
+  "description": "SEO status of Styla.com clients",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schnubor/seostatus.git"
+  },
+  "keywords": [
+    "seo",
+    "status"
+  ],
+  "author": "Christian Korndoerfer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schnubor/seostatus/issues"
+  },
+  "homepage": "https://github.com/schnubor/seostatus#readme",
+  "dependencies": {
+    "webpack": "^1.13.1"
+  }
+}
