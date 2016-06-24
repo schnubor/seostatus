@@ -1,3 +1,4 @@
+/public/dist
 /vendor
 .env
 node_modules
