@@ -8,4 +8,4 @@
 
 ## Running locally
 
-Local PHP server: `php -S localhost:8080`
+Local PHP server: `npm run serve`
