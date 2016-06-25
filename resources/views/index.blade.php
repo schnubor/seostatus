@@ -6,6 +6,6 @@
 </head>
 <body>
     <div id="app"></div>
-    <script src="dist/main.min.js"></script>
+    <script src="/js/main.min.js"></script>
 </body>
 </html>

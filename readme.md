@@ -9,3 +9,5 @@
 ## Running locally
 
 Local PHP server: `npm run serve`
+
+Compile JS: `webpack` or `webpack --watch` to automatically recompile
