@@ -1,10 +1,12 @@
 import React from "react";
 
-export default class Toolbar extends React.Component {
+export default class ClientToolbar extends React.Component {
     render(){
         return (
             <div>
-                <div className="ui divider"></div>
+                <div className="ui horizontal section divider">
+                    Filter Tools
+                </div>
                 <div className="ui form">
                     <div className="fields">
                         <div className="field">
@@ -26,7 +28,9 @@ export default class Toolbar extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="ui divider"></div>
+                <div className="ui horizontal section divider">
+                    List of Clients
+                </div>
             </div>
         );
     }

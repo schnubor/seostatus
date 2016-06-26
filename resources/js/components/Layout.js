@@ -1,13 +1,16 @@
 import React from "react";
 import Header from "./Header";
-import Content from "./Content";
+import Switch from "./Switch";
+import Charts from "./Charts";
 
 export default class Layout extends React.Component {
     render(){
         return (
             <div class="ui container">
                 <Header />
-                <Content />
+                <Switch />
+                <Charts />
+                {this.props.children}
             </div>
         );
     }

@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router';
 
 export default class Switch extends React.Component {
     render(){
         return (
             <div className="ui buttons">
-                <button className="ui button active">Errors per Client</button>
-                <button className="ui button">Clients per Error</button>
+                <Link to='/' className="ui button">Errors per Client</Link>
+                <Link to='errors' className="ui button">Clients per Error</Link>
             </div>
         );
     }
