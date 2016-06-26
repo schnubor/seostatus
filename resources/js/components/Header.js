@@ -7,15 +7,17 @@ export default class Header extends React.Component {
         super();
         this.state = {
             loading: false,
-            jsonURL: 'http://smileanddie.com/jenkins.json'
+            jsonURL: 'http://jenkins.magalog.net:8081/job/frontend/job/frontend_e2etest_live_extended/lastCompletedBuild/testReport/api/json'
         }
     }
 
+    // Live update URL when changing the input
     updateURL(e) {
         let jsonURL = e.target.value;
         this.setState({jsonURL});
     }
 
+    // Fetches Jenkins test result as JSONP
     fetchJSON() {
         this.setState({ loading: true });
 
@@ -29,6 +31,7 @@ export default class Header extends React.Component {
                 // TODO: Set error state
             }.bind(this),
             success: function(resp) {
+                // console.log(resp);
                 this.setState({ loading: false });
 
                 /* TODO
