@@ -1,7 +1,52 @@
 import React from 'react';
+import classNames from 'classnames';
+import $ from 'jquery';
 
 export default class Header extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            loading: false,
+            jsonURL: 'http://smileanddie.com/jenkins.json'
+        }
+    }
+
+    updateURL(e) {
+        let jsonURL = e.target.value;
+        this.setState({jsonURL});
+    }
+
+    fetchJSON() {
+        this.setState({ loading: true });
+
+        $.ajax({
+            url: this.state.jsonURL + '?jsonp=?',
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            error: function(error, textStatus) {
+                this.setState({ loading: false });
+                // TODO: Set error state
+            }.bind(this),
+            success: function(resp) {
+                this.setState({ loading: false });
+
+                /* TODO
+                var tests = this.extractTestCases(resp);
+                this.buildVueData(tests);
+                this.updateCharts();
+                */
+            }.bind(this),
+            timeout: 10000
+        });
+    }
+
     render(){
+        var btnClass = classNames({
+            'ui teal right button': true,
+            'loading': this.state.loading
+        });
+
         return (
             <div>
                 <div className="ui divider hidden"></div>
@@ -9,8 +54,8 @@ export default class Header extends React.Component {
                     <h1 className="ui header huge ">Styla SEO Stats</h1>
                     <div className="ui hidden divider"></div>
                     <div className="ui action input fluid">
-                        <input type="text" placeholder="Jenkins URL"/>
-                        <button className="ui teal right button">Parse</button>
+                        <input type="text" placeholder="Jenkins URL" value={this.state.jsonURL} onChange={this.updateURL.bind(this)} />
+                        <button className={btnClass} onClick={ this.fetchJSON.bind(this) }>Parse</button>
                     </div>
                     <div className="ui hidden divider"></div>
                 </div>
