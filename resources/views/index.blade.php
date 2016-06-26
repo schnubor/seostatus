@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Styla SEO status</title>
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <script src="semantic/dist/semantic.min.js"></script>
+
+    <!-- SUI CSS -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
+
+    <!-- Temporary script dependencies until we're done removing jQuery -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.js"></script>
 </head>
 <body>
     <div id="app"></div>

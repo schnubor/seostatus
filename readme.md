@@ -8,6 +8,6 @@
 
 ## Running locally
 
-Local PHP server: `npm run serve`
-
-Compile JS: `webpack` or `webpack --watch` to automatically recompile
+* `npm install`
+* Ramp up local PHP server: `npm run serve`
+* Compile JS: `webpack` or `webpack --watch` to automatically recompile
