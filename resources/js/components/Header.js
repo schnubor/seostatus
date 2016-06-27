@@ -7,7 +7,9 @@ export default class Header extends React.Component {
         super();
         this.state = {
             loading: false,
-            jsonURL: 'http://jenkins.magalog.net:8081/job/frontend/job/frontend_e2etest_live_extended/lastCompletedBuild/testReport/api/json'
+            jsonURL: 'http://jenkins.magalog.net:8081/job/frontend/job/frontend_e2etest_live_extended/lastCompletedBuild/testReport/api/json',
+            clients: [],
+            errorTypes: []
         }
     }
 
@@ -15,6 +17,29 @@ export default class Header extends React.Component {
     updateURL(e) {
         let jsonURL = e.target.value;
         this.setState({jsonURL});
+    }
+
+    // Extract tests from JSON log
+    extractTestCases(resp) {
+        var tempCases = [];
+
+        // Extract relevant info from "suites"
+        for(var suite of resp.suites) {
+            for(var test of suite.cases) {
+                if(test.status === 'FAILED') {
+                    var tempCase = {};
+
+                    tempCase.cat = test.className.match(/ : (.*)/g)[0];
+                    tempCase.cat = tempCase.cat.substr(3, tempCase.cat.length);
+                    tempCase.url = test.className.match(/.+?(?= : )/g)[0];
+                    tempCase.name = test.name;
+
+                    tempCases.push(tempCase);
+                }
+            }
+        }
+
+        return tempCases;
     }
 
     // Fetches Jenkins test result as JSONP
@@ -31,11 +56,12 @@ export default class Header extends React.Component {
                 // TODO: Set error state
             }.bind(this),
             success: function(resp) {
-                // console.log(resp);
+                console.log(resp);
                 this.setState({ loading: false });
 
-                /* TODO
                 var tests = this.extractTestCases(resp);
+                console.log(tests);
+                /*
                 this.buildVueData(tests);
                 this.updateCharts();
                 */

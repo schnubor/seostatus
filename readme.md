@@ -9,5 +9,6 @@
 ## Running locally
 
 * `npm install`
+* `composer install`
 * Ramp up local PHP server: `npm run serve`
 * Compile JS: `webpack` or `webpack --watch` to automatically recompile
