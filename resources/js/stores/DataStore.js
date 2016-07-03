@@ -19,7 +19,8 @@ class DataStore extends EventEmitter {
 
     // Extract tests from JSON log
     extractTestCases(resp) {
-        var tempCases = [];
+        let tempCases = [];
+        let index = 0;
 
         // Extract relevant info from "suites"
         for(var suite of resp.suites) {
@@ -27,16 +28,17 @@ class DataStore extends EventEmitter {
                 if(test.status === 'FAILED') {
                     var tempCase = {};
 
+                    tempCase.id = index;
                     tempCase.cat = test.className.match(/ : (.*)/g)[0];
                     tempCase.cat = tempCase.cat.substr(3, tempCase.cat.length);
                     tempCase.url = test.className.match(/.+?(?= : )/g)[0];
                     tempCase.name = test.name;
 
                     tempCases.push(tempCase);
+                    index++;
                 }
             }
         }
-
         return tempCases;
     }
 
@@ -48,6 +50,7 @@ class DataStore extends EventEmitter {
 
         // populate data
         for(var test of tests) {
+            var id = test.id;
             var title = test.cat + ' ' + test.name;
             var error = _.find(this.errors, ['title', title]);
             var client = _.find(this.clients, ['url', test.url]);
@@ -55,6 +58,7 @@ class DataStore extends EventEmitter {
             if(typeof client === 'undefined') {
                 // Create new client object with 'url' and empty errors array
                 var clientObj = {};
+                clientObj.id = id;
                 clientObj.url = test.url;
                 clientObj.errors = [test];
                 this.clients.push(clientObj);
@@ -66,6 +70,7 @@ class DataStore extends EventEmitter {
             if(typeof error === 'undefined') {
                 // Create new errorType object with 'title' and empty clients array
                 var errorObj = {};
+                errorObj.id = id;
                 errorObj.title = title;
                 errorObj.clients = [test.url];
                 this.errors.push(errorObj);

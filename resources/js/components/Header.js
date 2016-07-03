@@ -15,6 +15,7 @@ export default class Header extends React.Component {
     }
 
     componentWillMount() {
+        // Bind events
         DataStore.on("loading", () => {
             this.setState({
                 loading: true
@@ -26,6 +27,11 @@ export default class Header extends React.Component {
                 loading: false
             });
         });
+    }
+
+    // Load data after page load
+    componentDidMount() {
+        DataActions.fetch(this.state.jsonURL);
     }
 
     // Live update URL when changing the input
