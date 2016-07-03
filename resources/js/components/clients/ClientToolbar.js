@@ -28,9 +28,6 @@ export default class ClientToolbar extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="ui horizontal section divider">
-                    List of Clients
-                </div>
             </div>
         );
     }

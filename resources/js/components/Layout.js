@@ -5,11 +5,13 @@ import Charts from "./Charts";
 
 export default class Layout extends React.Component {
     render(){
+        const { location } = this.props;
+
         return (
             <div class="ui container">
                 <Header />
-                <Switch />
-                <Charts />
+                <Switch location={location}/>
+                <Charts location={location}/>
                 {this.props.children}
             </div>
         );

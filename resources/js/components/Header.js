@@ -1,16 +1,31 @@
 import React from 'react';
 import classNames from 'classnames';
 import $ from 'jquery';
+import DataStore from "../stores/DataStore";
+import * as DataActions from "../actions/DataActions";
 
 export default class Header extends React.Component {
     constructor(){
         super();
         this.state = {
             loading: false,
-            jsonURL: 'http://jenkins.magalog.net:8081/job/frontend/job/frontend_e2etest_live_extended/lastCompletedBuild/testReport/api/json',
-            clients: [],
-            errorTypes: []
+            //jsonURL: 'http://jenkins.magalog.net:8081/job/frontend/job/frontend_e2etest_live_extended/lastCompletedBuild/testReport/api/json',
+            jsonURL: 'http://smileanddie.com/jenkins.json'
         }
+    }
+
+    componentWillMount() {
+        DataStore.on("loading", () => {
+            this.setState({
+                loading: true
+            });
+        });
+
+        DataStore.on("fetched", () => {
+            this.setState({
+                loading: false
+            });
+        });
     }
 
     // Live update URL when changing the input
@@ -19,55 +34,13 @@ export default class Header extends React.Component {
         this.setState({jsonURL});
     }
 
-    // Extract tests from JSON log
-    extractTestCases(resp) {
-        var tempCases = [];
-
-        // Extract relevant info from "suites"
-        for(var suite of resp.suites) {
-            for(var test of suite.cases) {
-                if(test.status === 'FAILED') {
-                    var tempCase = {};
-
-                    tempCase.cat = test.className.match(/ : (.*)/g)[0];
-                    tempCase.cat = tempCase.cat.substr(3, tempCase.cat.length);
-                    tempCase.url = test.className.match(/.+?(?= : )/g)[0];
-                    tempCase.name = test.name;
-
-                    tempCases.push(tempCase);
-                }
-            }
-        }
-
-        return tempCases;
+    // update data store
+    updateDataStore(tests) {
+        console.log(tests);
     }
 
-    // Fetches Jenkins test result as JSONP
-    fetchJSON() {
-        this.setState({ loading: true });
-
-        $.ajax({
-            url: this.state.jsonURL + '?jsonp=?',
-            type: 'GET',
-            dataType: 'jsonp',
-            jsonp: 'callback',
-            error: function(error, textStatus) {
-                this.setState({ loading: false });
-                // TODO: Set error state
-            }.bind(this),
-            success: function(resp) {
-                console.log(resp);
-                this.setState({ loading: false });
-
-                var tests = this.extractTestCases(resp);
-                console.log(tests);
-                /*
-                this.buildVueData(tests);
-                this.updateCharts();
-                */
-            }.bind(this),
-            timeout: 10000
-        });
+    parseClickHandler() {
+        DataActions.fetch(this.state.jsonURL);
     }
 
     render(){
@@ -80,11 +53,11 @@ export default class Header extends React.Component {
             <div>
                 <div className="ui divider hidden"></div>
                 <div className="ui huge message">
-                    <h1 className="ui header huge ">Styla SEO Stats</h1>
+                    <h1 className="ui header huge ">Styla SEO Status</h1>
                     <div className="ui hidden divider"></div>
                     <div className="ui action input fluid">
                         <input type="text" placeholder="Jenkins URL" value={this.state.jsonURL} onChange={this.updateURL.bind(this)} />
-                        <button className={btnClass} onClick={ this.fetchJSON.bind(this) }>Parse</button>
+                        <button className={btnClass} onClick={ this.parseClickHandler.bind(this) }>Parse</button>
                     </div>
                     <div className="ui hidden divider"></div>
                 </div>

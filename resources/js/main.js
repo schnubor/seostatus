@@ -12,6 +12,7 @@ ReactDOM.render(
     <Router history={hashHistory}>
         <Route path="/" component={Layout}>
             <IndexRoute component={Clients}></IndexRoute>
+            <Route path="/clients" component={Clients}></Route>
             <Route path="/errors" component={Errors}></Route>
         </Route>
     </Router>,
