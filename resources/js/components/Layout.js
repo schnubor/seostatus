@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import Switch from "./Switch";
+import Navigation from "./Navigation";
 import Charts from "./Charts";
 
 export default class Layout extends React.Component {
@@ -9,8 +9,8 @@ export default class Layout extends React.Component {
 
         return (
             <div class="ui container">
+                <Navigation location={location}/>
                 <Header />
-                <Switch location={location}/>
                 <Charts location={location}/>
                 {this.props.children}
             </div>

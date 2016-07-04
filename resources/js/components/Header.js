@@ -50,14 +50,17 @@ export default class Header extends React.Component {
     }
 
     render(){
-        var btnClass = classNames({
+        const btnClass = classNames({
             'ui teal right button': true,
             'loading': this.state.loading
         });
 
+        const headerStyle = {
+            marginTop: 80
+        };
+
         return (
-            <div>
-                <div className="ui divider hidden"></div>
+            <div style={headerStyle}>
                 <div className="ui huge message">
                     <h1 className="ui header huge ">Styla SEO Status</h1>
                     <div className="ui hidden divider"></div>
