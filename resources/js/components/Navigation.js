@@ -9,9 +9,11 @@ export default class Navigation extends React.Component {
 
         return (
             <div className="ui top fixed menu large">
-                <div className="item">Logo</div>
-                <Link to='clients' className={"item " + clientsClassName}>Clients</Link>
-                <Link to='errors' className={"item " + errorsClassName}>Errors</Link>
+                <div className="ui container">
+                    <div className="item"><img src="/images/styla-logotype.png" alt="Styla"/></div>
+                    <Link to='clients' className={"item " + clientsClassName}>Clients</Link>
+                    <Link to='errors' className={"item " + errorsClassName}>Errors</Link>
+                </div>
             </div>
         );
     }

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import $ from 'jquery';
 import DataStore from "../stores/DataStore";
 import * as DataActions from "../actions/DataActions";
 
